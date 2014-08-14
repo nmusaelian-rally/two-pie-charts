@@ -3,8 +3,15 @@ Ext.define('CustomApp', {
     componentCls: 'app',
     _atTheStartAddedChart: null,
     _stateChart: null,
-    
+    items: [
+        {
+            xtype: 'container',
+            itemId: 'mychart',
+            columnWidth: 1
+        }
+    ],
     launch: function() {
+        
         this._createAtTheStartAddedChart();
         this._createStateChart();
     },
@@ -67,7 +74,9 @@ Ext.define('CustomApp', {
 },
 
     _createChart: function (series) {
-        var chart = Ext.create('Rally.ui.chart.Chart', {
+        var chartDiv = this.down("#mychart");
+        chartDiv.add({
+            xtype: 'rallychart',
             chartConfig: {
                 chart: {
                     plotBackgroundColor: null,
@@ -95,7 +104,5 @@ Ext.define('CustomApp', {
                 series: series
             }
         });
-        this.add(chart);
     }
-
 });
