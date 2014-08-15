@@ -6,8 +6,21 @@ Ext.define('CustomApp', {
     items: [
         {
             xtype: 'container',
-            itemId: 'mychart',
-            columnWidth: 1
+            itemId: 'parent',
+            //layout: 'column',
+            //layout:{
+            //    type: 'hbox'
+            //},
+            items:[
+                {
+                    xtype: 'container',
+                    itemId: 'child1'
+                },
+                {
+                    xtype: 'container',
+                    itemId: 'child2'
+                }
+            ]
         }
     ],
     launch: function() {
@@ -36,7 +49,8 @@ Ext.define('CustomApp', {
             ]
         }
     ];
-    this._createChart(series);
+    var div = Ext.ComponentQuery.query('#child1')[0];
+    this._createChart(series,div);
 },
 
     _createStateChart: function () {
@@ -70,12 +84,12 @@ Ext.define('CustomApp', {
                 ]
             }
         ];
-        this._createChart(series);
+        var div = Ext.ComponentQuery.query('#child2')[0];
+        this._createChart(series,div);
 },
 
-    _createChart: function (series) {
-        var chartDiv = this.down("#mychart");
-        chartDiv.add({
+    _createChart: function (series,div) {
+        div.add({
             xtype: 'rallychart',
             chartConfig: {
                 chart: {
